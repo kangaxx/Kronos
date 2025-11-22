@@ -1,0 +1,22 @@
+{
+  "d_in": 5,                  // 匹配螺纹钢5维特征（开盘价、收盘价等）
+  "d_model": 256,             // 模型维度（平衡能力与显存）
+  "n_heads": 16,              // 提升多头注意力的多尺度捕捉能力
+  "ff_dim": 1024,             // 前馈网络维度（256×4）
+  "n_enc_layers": 8,          // 增加编码器层数，增强长序列建模
+  "n_dec_layers": 6,          // 解码器层数略增，提升预测精度
+  "ffn_dropout_p": 0.15,      // 稍增Dropout，抑制高频噪声过拟合
+  "attn_dropout_p": 0.15,
+  "resid_dropout_p": 0.1,
+  "s1_bits": 32,              // 不量化，保留精度
+  "s2_bits": 32,
+  "group_size": 0,
+  "batch_size": 16,           // 适配显存，配合梯度累积
+  "gradient_accumulation_steps": 4,  // 等效batch_size=64
+  "learning_rate": 8e-5,      // 适配大批次，加速收敛
+  "num_epochs": 50,           // 大数据无需过多轮次
+  "early_stopping_patience": 5,      // 严格早停
+  "max_seq_length": 1440,     // 覆盖1天周期，捕捉日内规律
+  "optimizer": "adamw",
+  "lr_scheduler": "cosine"
+}
